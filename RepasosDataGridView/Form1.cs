@@ -86,7 +86,31 @@ namespace RepasosDataGridView
 
         private void button3_Click(object sender, EventArgs e)
         {
+            string producto = string.Format("Producto {0:000}", index);
+            int stock = random.Next(10, 100);
+            double precio = random.Next(100, 200);
 
+            table.Rows.Add(index, producto, stock, precio.ToString("#,###.00", nfi));
+            index++;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int ctas_fils_sel = dataGridView2.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (ctas_fils_sel > 0)
+            {
+                if(MessageBox.Show("¿Retirar producto(s)?", "Advertencia", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach(DataGridViewRow row in dataGridView2.SelectedRows)
+                    {
+                        dataGridView2.Rows.Remove(row);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione fila a retirar");
+            }
         }
     }
 }
